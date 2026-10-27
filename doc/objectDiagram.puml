@@ -32,7 +32,7 @@ Game *-- "1" Dice
 Board "1" *-- Field : has-a
 
 Plot *-- Building: has-a
-Property  *--  Deed
+Property  *-- "0..28" Deed
 Player *--  Deed
 Business <|--  "4" ShippingLine
 Business <|--  "2" Brewery : is - a
