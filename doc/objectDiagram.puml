@@ -26,32 +26,32 @@ object Business
 object Plot
 
 Game *-- Board
-Game *--  Player
+Game "1" *--  "2..6" Player  : has-a
 
-Game *-- Dice
-Board *-- Field : has-a
+Game *-- "1" Dice
+Board "1" *-- Field : has-a
 
 Plot *-- Building: has-a
 Property  *--  Deed
 Player *--  Deed
-Business <|--  ShippingLine
-Business <|--  Brewery : is - a
+Business <|--  "4" ShippingLine
+Business <|--  "2" Brewery : is - a
 
-Field <|-- Property : is - a
-Field <|-- Start
-Field <|-- Chance
-Field <|-- Parking
-Field <|-- Tax
-Field <|-- Prison
-Field <|-- Visit
+Field "40" <|-- "28" Property : is - a
+Field <|-- "1" Start
+Field <|-- "6" Chance
+Field <|-- "1" Parking
+Field <|-- "2" Tax
+Field <|-- "1" Prison
+Field <|-- "1" Visit
 
 
-CardDeck --* Chance
-Property <|-- Business
-Property <|-- Plot: is - a
+CardDeck "1" --* Chance
+Property <|-- "6" Business
+Property <|-- "22" Plot: is - a
 
-Player *--  Card
-CardDeck  *--  Card
+Player *-- "16" Card
+CardDeck "1" *--  Card
 
 
 @enduml
