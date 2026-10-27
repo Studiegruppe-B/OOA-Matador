@@ -1,0 +1,17 @@
+@startuml
+@startuml
+!pragma layout smetana
+
+  actor user as u
+
+
+  usecase "StartGame" as UC1
+  usecase "RegisterPlayers" as UC2
+  usecase "ThrowAndMove" as UC3
+  usecase "LandAndAct" as UC4
+  usecase "EndGame" as UC5
+
+
+
+@enduml
+@enduml
