@@ -25,11 +25,11 @@ object Bank
 object Business
 object Plot
 
-Game *-- Board
-Game "1" *--  "2..6" Player  : has-a
+Game *-- "1" Board
+Game *--  "2..6" Player  : has-a
 
 Game *-- "1" Dice
-Board "1" *-- Field : has-a
+Board "1" *-- "40" Field : has-a
 
 Plot *-- Building: has-a
 Property  *-- "0..28" Deed
@@ -37,7 +37,7 @@ Player *--  Deed
 Business <|--  "4" ShippingLine
 Business <|--  "2" Brewery : is - a
 
-Field "40" <|-- "28" Property : is - a
+Field <|-- "28" Property : is - a
 Field <|-- "1" Start
 Field <|-- "6" Chance
 Field <|-- "1" Parking
@@ -50,8 +50,8 @@ CardDeck "1" --* Chance
 Property <|-- "6" Business
 Property <|-- "22" Plot: is - a
 
-Player *-- "16" Card
-CardDeck "1" *--  Card
+Player *-- "0..16" Card
+CardDeck "1" *--  "16" Card
 
 
 @enduml
