@@ -1,6 +1,57 @@
 @startuml
-Object Game
-Object GameBoard
-Object Player
-Object Dice
+!pragma layout smetana
+
+'nyt: carddeck - card
+
+object Game
+object Player
+object Dice
+object CardDeck
+object Card
+object Board
+object Field
+object Property
+object Prison
+object Visit
+object Tax
+object Parking
+object Start
+object Chance
+object ShippingLine
+object Brewery
+object Building
+object Deed
+object Bank
+object Business
+object Plot
+
+Game *-- Board
+Game *--  Player
+
+Game *-- Dice
+Board *-- Field : has-a
+
+Plot *-- Building: has-a
+Property  *--  Deed
+Player *--  Deed
+Business <|--  ShippingLine
+Business <|--  Brewery : is - a
+
+Field <|-- Property : is - a
+Field <|-- Start
+Field <|-- Chance
+Field <|-- Parking
+Field <|-- Tax
+Field <|-- Prison
+Field <|-- Visit
+
+
+CardDeck --* Chance
+Property <|-- Business
+Property <|-- Plot: is - a
+
+Player *--  Card
+CardDeck  *--  Card
+
+
 @enduml
