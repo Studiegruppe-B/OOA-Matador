@@ -33,7 +33,8 @@ public class TextUI {
             x = false;
             return x;
         } else {
-            throw  new IllegalArgumentException ("Ugyldigt input: " + input);
+            System.out.println("Ugyldigt input!: " + input);
+             return promptBinary(msg);
         }
     }
 
