@@ -1,0 +1,32 @@
+
+@startuml
+actor Main
+participant Game
+participant TextUI
+participant FileIO
+participant Player
+
+Main -> Game : startSession()
+
+Game -> TextUI : displayMessage("Velkommen til spillet")
+TextUI --> Game
+
+Game -> FileIO : readPlayerData()
+FileIO --> Game : playerData
+
+alt Spillere findes i filen
+    loop For hver spiller i playerData
+        Game -> Player : createPlayer()
+        Player --> Game : player
+
+        Game -> Game : registerPlayer(player)
+    end
+else Ingen spillere fundet
+    Game -> TextUI : displayMessage("Ingen spillere fundet")
+end
+
+Game -> TextUI : displayPlayers()
+TextUI --> Game
+
+Game --> Main : Session startet
+@enduml
