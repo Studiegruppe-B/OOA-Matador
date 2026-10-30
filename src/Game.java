@@ -55,8 +55,7 @@ public class Game {
 
         this.roundCount = 0;
         while(continueGame) {
-            this.currentPlayer = players.get(this.roundCount % this.playerCount);
-
+            throwAndMove();
             continueGame = TextUI.promptBinary("Fortsæt?");
             this.roundCount++;
         }
@@ -87,14 +86,14 @@ public class Game {
         players.add(p);
     }
 
-    public void displayPlayers(){
+    private void displayPlayers(){
         for(Player p : players){
             System.out.println(p);
         }
     }
 
     private void endSession(){
-        TextUI.promptText("Lukker spil. Tak for at spille!");
+        TextUI.displayMessage("Lukker spil. Tak for at spille!");
 
         ArrayList<String> playersData = new ArrayList<>();
 
@@ -102,5 +101,14 @@ public class Game {
             playersData.add(p.toString());
         }
         FileIO.saveData(playersData, "data/playerData.csv", "Name, Balance"); // persister data
+    }
+
+    private void throwAndMove(){
+        this.currentPlayer = players.get(this.roundCount % this.playerCount);
+
+    }
+
+    private void landAndAct(){
+
     }
 }
