@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Game {
 
-    private final String name;
+    private final String GAME_NAME;
     private final int MAX_PLAYERS;
     private final int MIN_PLAYERS;
     private int playerCount;
@@ -14,7 +14,7 @@ public class Game {
     private boolean continueGame;
 
     public Game(String name, int minPlayers, int maxPlayers){
-        this.name = name;
+        this.GAME_NAME = name;
         this.MAX_PLAYERS = maxPlayers;
         this.MIN_PLAYERS = minPlayers;
         this.continueGame = true;
@@ -22,7 +22,7 @@ public class Game {
 
     }
     private void startSession(){
-        TextUI.displayMessage("Velkommen til Matador!"); // Welcome message
+        TextUI.displayMessage("Velkommen til " + this.GAME_NAME + "!"); // Welcome message
         if(FileIO.isEmpty("data/playerData.csv")){
             registerPlayers();
         } else {
