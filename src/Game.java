@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Game {
@@ -38,7 +39,7 @@ public class Game {
                         }
                         return;
                     default:
-                        System.out.println("Forkert valg. Prøv igen!");
+                        TextUI.displayMessage("Forkert valg. Prøv igen!");
                 }
             }
 
@@ -46,7 +47,7 @@ public class Game {
     }
 
     public void runGameLoop() {
-        currentPlayer = players.get(0);
+        this.currentPlayer = players.getFirst();
     }
 
     public final void registerPlayers(){
@@ -54,7 +55,7 @@ public class Game {
 
         // Run method recursively until correct input is given.
         if (!(playerCount <= MAX_PLAYERS && playerCount >= MIN_PLAYERS)) {
-            System.out.println("Ugyldigt spiller antal '" + playerCount + "'" + ". Gyldigt interval -> (" + this.MIN_PLAYERS + " - " + this.MAX_PLAYERS + ")");
+            TextUI.displayMessage("Ugyldigt spiller antal '" + playerCount + "'" + ". Gyldigt interval -> (" + this.MIN_PLAYERS + " - " + this.MAX_PLAYERS + ")");
             registerPlayers();
         }
 
@@ -63,6 +64,8 @@ public class Game {
             String playerName = TextUI.promptText("Tast spiller navn");
             this.createPlayer(playerName, 0);
         }
+
+        Collections.shuffle(players); // Shuffle player List
     }
 
 
