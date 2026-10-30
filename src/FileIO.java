@@ -7,9 +7,11 @@ public final class FileIO {
         File file = new File(path);
         ArrayList<String> data = new ArrayList<>();
         try (Scanner scan = new Scanner(file)) {
-            scan.nextLine(); //Skip header
-            while(scan.hasNextLine()) {
-                data.add(scan.nextLine());
+            if (scan.hasNextLine()) { // Check if file has a next line!
+                scan.nextLine(); //Skip header
+                while(scan.hasNextLine()) {
+                    data.add(scan.nextLine());
+                }
             }
         } catch(FileNotFoundException e) {
             System.out.println("[FileIO] Could not read data from file. File not found!");
@@ -29,5 +31,16 @@ public final class FileIO {
         }
     }
 
+    public static boolean isEmpty(String path) {
+        File file = new File(path);
+        try (Scanner scan = new Scanner(file)) {
+            if (scan.hasNextLine()) {
+                return false;
+            }
+        } catch (IOException e) {
+            System.out.println("[FileIO] File not found!");
+        }
+        return true;
+    }
 }
 
