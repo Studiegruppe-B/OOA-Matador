@@ -15,30 +15,26 @@ public class Game {
     }
     public void startSession(){
         TextUI.displayMessage("Velkommen til Matador!"); // Welcome message
-        ArrayList<String> data = FileIO.readData("data/playerData.csv"); // Read data from save file
-        if(data.isEmpty()){
+        if(FileIO.isEmpty("data/playerData.csv")){
             registerPlayers();
         } else {
-            boolean loop = true;
-            while (loop) {
+            ArrayList<String> data = FileIO.readData("data/playerData.csv");
+            while (true) {
                 int answer = Integer.parseInt(TextUI.promptText("Vil du lave et nyt spil(1)\n Eller bruge nuværende data?(2)"));
                 switch (answer) {
                     case 1:
                         registerPlayers();
-                        loop = false;
-                        break;
-
+                        return;
                     case 2:
                         for (String s : data) {
                             //instantier en player
-                            String[] values = s.split(",");// "tess, 0". --> ["tess", "0"]
+                            String[] values = s.split(",");
                             String name = values[0];
                             int balance = Integer.parseInt(values[1].trim());
                             Player p = new Player(name, balance);
                             players.add(p);
                         }
-                        loop = false;
-                        break;
+                        return;
                     default:
                         throw new IllegalArgumentException("Ugyldigt input, tast 1 eller 2: " + answer);
                 }
