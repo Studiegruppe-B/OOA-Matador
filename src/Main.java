@@ -6,8 +6,6 @@ public class Main {
 
 
         Game g = new Game("Yatzy", 2, 6);
-        g.startSession();
         g.runGameLoop();
-        g.endSession();
     }
 }

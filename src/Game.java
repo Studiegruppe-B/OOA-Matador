@@ -7,7 +7,7 @@ public class Game {
     private final String name;
     private final int MAX_PLAYERS;
     private final int MIN_PLAYERS;
-    private int PLAYER_COUNT;
+    private int playerCount;
     private final ArrayList<Player> players;
     private Player currentPlayer;
     private int roundCount;
@@ -21,7 +21,7 @@ public class Game {
         players = new ArrayList<>();
 
     }
-    public final void startSession(){
+    private void startSession(){
         TextUI.displayMessage("Velkommen til Matador!"); // Welcome message
         if(FileIO.isEmpty("data/playerData.csv")){
             registerPlayers();
@@ -50,20 +50,20 @@ public class Game {
         }
     }
 
-    public void runGameLoop() {
-        this.roundCount = 0;
+    public final void runGameLoop() {
+        this.startSession();
 
+        this.roundCount = 0;
         while(continueGame) {
-            this.currentPlayer = players.get(roundCount % PLAYER_COUNT);
-            throwAndMove();
-            landAndAct();
+            this.currentPlayer = players.get(this.roundCount % this.playerCount);
+
             continueGame = TextUI.promptBinary("Fortsæt?");
             this.roundCount++;
         }
-
+        this.endSession();
     }
 
-    public final void registerPlayers(){
+    private void registerPlayers(){
         int playerCount = TextUI.promptNumeric("Tast antal deltagere");
 
         if (playerCount <= MAX_PLAYERS && playerCount >= MIN_PLAYERS) {
@@ -71,7 +71,7 @@ public class Game {
                 String playerName = TextUI.promptText("Tast spiller navn");
                 this.createPlayer(playerName, 0);
             }
-            PLAYER_COUNT = players.size(); // Initialize player count variable.
+            this.playerCount = players.size(); // Initialize player count variable.
             Collections.shuffle(players); // Shuffle player List
             return;
         }
@@ -93,7 +93,7 @@ public class Game {
         }
     }
 
-    public void endSession(){
+    private void endSession(){
         TextUI.promptText("Lukker spil. Tak for at spille!");
 
         ArrayList<String> playersData = new ArrayList<>();
@@ -102,13 +102,5 @@ public class Game {
             playersData.add(p.toString());
         }
         FileIO.saveData(playersData, "data/playerData.csv", "Name, Balance"); // persister data
-    }
-
-    public void throwAndMove(){
-
-    }
-
-    public void landAndAct(){
-        
     }
 }
