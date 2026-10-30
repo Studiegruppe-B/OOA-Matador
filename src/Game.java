@@ -53,19 +53,19 @@ public class Game {
     public final void registerPlayers(){
         int playerCount = TextUI.promptNumeric("Tast antal deltagere");
 
+
+        if (playerCount <= MAX_PLAYERS && playerCount >= MIN_PLAYERS) {
+            while(this.players.size() < playerCount) { // Create a player until MAX_PLAYERS is reached.
+                String playerName = TextUI.promptText("Tast spiller navn");
+                this.createPlayer(playerName, 0);
+            }
+            Collections.shuffle(players); // Shuffle player List
+            return;
+        }
+
         // Run method recursively until correct input is given.
-        if (!(playerCount <= MAX_PLAYERS && playerCount >= MIN_PLAYERS)) {
-            TextUI.displayMessage("Ugyldigt spiller antal '" + playerCount + "'" + ". Gyldigt interval -> (" + this.MIN_PLAYERS + " - " + this.MAX_PLAYERS + ")");
-            registerPlayers();
-        }
-
-        // Create a player until MAX_PLAYERS is reached.
-        while(this.players.size() < playerCount) {
-            String playerName = TextUI.promptText("Tast spiller navn");
-            this.createPlayer(playerName, 0);
-        }
-
-        Collections.shuffle(players); // Shuffle player List
+        TextUI.displayMessage("Ugyldigt spiller antal '" + playerCount + "'" + ". Gyldigt interval -> (" + this.MIN_PLAYERS + " - " + this.MAX_PLAYERS + ")");
+        registerPlayers();
     }
 
 
