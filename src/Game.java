@@ -9,11 +9,14 @@ public class Game {
     private final int MIN_PLAYERS;
     private final ArrayList<Player> players;
     private Player currentPlayer;
+    private int roundCount;
+    private boolean continueGame;
 
     public Game(String name, int minPlayers, int maxPlayers){
         this.name = name;
         this.MAX_PLAYERS = maxPlayers;
         this.MIN_PLAYERS = minPlayers;
+        this.continueGame = true;
         players = new ArrayList<>();
 
     }
@@ -47,12 +50,18 @@ public class Game {
     }
 
     public void runGameLoop() {
-        this.currentPlayer = players.getFirst();
+        this.roundCount = 0;
+
+        while(continueGame) {
+            this.currentPlayer = players.get(roundCount % MAX_PLAYERS);
+
+            roundCount++;
+        }
+
     }
 
     public final void registerPlayers(){
         int playerCount = TextUI.promptNumeric("Tast antal deltagere");
-
 
         if (playerCount <= MAX_PLAYERS && playerCount >= MIN_PLAYERS) {
             while(this.players.size() < playerCount) { // Create a player until MAX_PLAYERS is reached.
