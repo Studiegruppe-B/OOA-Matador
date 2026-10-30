@@ -1,0 +1,13 @@
+@startuml
+Main -> Game: startSession()
+
+'indsæt kald til readBoardData
+'indsæt kald til konstruktoren i Board
+'indsæt kald til createFields
+'indsæt loop
+'indsæt kald til konstruktoren i Field
+'indsæt kald til readBoardData
+'indsæt kald til konstruktoren i CardDeck
+'indsæt kald til createCards
+'indsæt kald til konstruktoren i Card
+@enduml
