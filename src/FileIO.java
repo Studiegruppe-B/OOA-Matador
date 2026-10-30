@@ -7,7 +7,7 @@ public class FileIO {
 
     public ArrayList<String> readData(String path){
         File file = new File(path);
-        ArrayList<String> data = new ArrayList<>(); //"Tess, 0", "Lina, 0", "Signe, 0"
+        ArrayList<String> data = new ArrayList<>();
         try (Scanner scan = new Scanner(file)) {
             scan.nextLine(); //Skip header
             while(scan.hasNextLine()) {
