@@ -7,6 +7,7 @@ public class Game {
     private final int MAX_PLAYERS;
     private final int MIN_PLAYERS;
     private final ArrayList<Player> players;
+    private Player currentPlayer;
 
     public Game(String name, int minPlayers, int maxPlayers){
         this.name = name;
@@ -44,6 +45,10 @@ public class Game {
         }
     }
 
+    public void runGameLoop() {
+        currentPlayer = players.get(0);
+    }
+
     public final void registerPlayers(){
         int playerCount = TextUI.promptNumeric("Tast antal deltagere");
 
@@ -74,12 +79,10 @@ public class Game {
 
     public void endSession(){
         ArrayList<String> playersData = new ArrayList<>();
-        // persister data
 
         for(Player p:players){
             playersData.add(p.toString());
-
         }
-        FileIO.saveData(playersData, "data/playerData.csv", "Name, Balance");
+        FileIO.saveData(playersData, "data/playerData.csv", "Name, Balance"); // persister data
     }
 }
