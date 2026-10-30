@@ -55,7 +55,8 @@ public class Game {
 
         while(continueGame) {
             this.currentPlayer = players.get(roundCount % PLAYER_COUNT);
-
+            throwAndMove();
+            landAndAct();
             continueGame = TextUI.promptBinary("Fortsæt?");
             this.roundCount++;
         }
@@ -101,5 +102,13 @@ public class Game {
             playersData.add(p.toString());
         }
         FileIO.saveData(playersData, "data/playerData.csv", "Name, Balance"); // persister data
+    }
+
+    public void throwAndMove(){
+
+    }
+
+    public void landAndAct(){
+        
     }
 }
