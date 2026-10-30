@@ -48,6 +48,7 @@ public final class TextUI {
             System.out.println("Skriv et tal");
             input = promptNumeric(msg);
         }
+        scan.nextLine();
         return input;
     }
 
