@@ -19,18 +19,13 @@ public final class TextUI {
 
     public static boolean promptBinary(String msg){
         System.out.println(msg + " Y/N");
-        String input  = scan.nextLine();
-        boolean x;
-        if (input.equalsIgnoreCase("y")){
-            x = true;
-            return x;
-        }
-        if (input.equalsIgnoreCase("N")){
-            x = false;
-            return x;
-        } else {
-            System.out.println("Ugyldigt input!: " + input);
-             return promptBinary(msg);
+        switch (scan.nextLine().toUpperCase()) {
+            case "Y":
+                return true;
+            case "N":
+                return false;
+            default:
+                return promptBinary(msg);
         }
     }
 
