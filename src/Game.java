@@ -4,12 +4,14 @@ import java.util.List;
 public class Game {
 
     private final String name;
-    private final int maxPlayers;
+    private final int MAX_PLAYERS;
+    private final int MIN_PLAYERS;
     private final ArrayList<Player> players;
 
-    public Game(String name, int maxPlayers){
+    public Game(String name, int minPlayers, int maxPlayers){
         this.name = name;
-        this.maxPlayers = maxPlayers;
+        this.MAX_PLAYERS = maxPlayers;
+        this.MIN_PLAYERS = minPlayers;
         players = new ArrayList<>();
 
     }
@@ -20,7 +22,7 @@ public class Game {
         } else {
             ArrayList<String> data = FileIO.readData("data/playerData.csv");
             while (true) {
-                int answer = Integer.parseInt(TextUI.promptText("Vil du lave et nyt spil(1)\n Eller bruge nuværende data?(2)"));
+                int answer = Integer.parseInt(TextUI.promptText("Vil du lave et nyt spil (1)\nEller bruge nuværende data? (2)"));
                 switch (answer) {
                     case 1:
                         registerPlayers();
@@ -36,7 +38,7 @@ public class Game {
                         }
                         return;
                     default:
-                        throw new IllegalArgumentException("Ugyldigt input, tast 1 eller 2: " + answer);
+                        System.out.println("Forkert valg. Prøv igen!");
                 }
             }
 
@@ -44,12 +46,17 @@ public class Game {
     }
 
     public void registerPlayers(){
-        int playerNumber = TextUI.promptNumeric("Tast antal deltagere");
+        int playerCount = TextUI.promptNumeric("Tast antal deltagere");
 
-        while(this.players.size() < playerNumber) {
-            String playerName = TextUI.promptText("Tast spiller navn");
-            this.createPlayer(playerName, 0);
+        if (playerCount <= MAX_PLAYERS && playerCount >= MIN_PLAYERS) {
+            while(this.players.size() < playerCount) {
+                String playerName = TextUI.promptText("Tast spiller navn");
+                this.createPlayer(playerName, 0);
+            }
+            return;
         }
+        System.out.println("Ugyldigt spiller antal. Gyldigt interval -> (" + this.MIN_PLAYERS + " - " + this.MAX_PLAYERS + ")");
+        registerPlayers();
     }
 
 
