@@ -15,15 +15,14 @@ public class Game {
         players = new ArrayList<>();
 
     }
-    public void startSession(){
+    public final void startSession(){
         TextUI.displayMessage("Velkommen til Matador!"); // Welcome message
         if(FileIO.isEmpty("data/playerData.csv")){
             registerPlayers();
         } else {
             ArrayList<String> data = FileIO.readData("data/playerData.csv");
             while (true) {
-                int answer = Integer.parseInt(TextUI.promptText("Vil du lave et nyt spil (1)\nEller bruge nuværende data? (2)"));
-                switch (answer) {
+                switch (Integer.parseInt(TextUI.promptText("Vil du lave et nyt spil (1)\nEller bruge nuværende data? (2)"))) {
                     case 1:
                         registerPlayers();
                         return;
@@ -45,18 +44,20 @@ public class Game {
         }
     }
 
-    public void registerPlayers(){
+    public final void registerPlayers(){
         int playerCount = TextUI.promptNumeric("Tast antal deltagere");
 
-        if (playerCount <= MAX_PLAYERS && playerCount >= MIN_PLAYERS) {
-            while(this.players.size() < playerCount) {
-                String playerName = TextUI.promptText("Tast spiller navn");
-                this.createPlayer(playerName, 0);
-            }
-            return;
+        // Run method recursively until correct input is given.
+        if (!(playerCount <= MAX_PLAYERS && playerCount >= MIN_PLAYERS)) {
+            System.out.println("Ugyldigt spiller antal '" + playerCount + "'" + ". Gyldigt interval -> (" + this.MIN_PLAYERS + " - " + this.MAX_PLAYERS + ")");
+            registerPlayers();
         }
-        System.out.println("Ugyldigt spiller antal. Gyldigt interval -> (" + this.MIN_PLAYERS + " - " + this.MAX_PLAYERS + ")");
-        registerPlayers();
+
+        // Create a player until MAX_PLAYERS is reached.
+        while(this.players.size() < playerCount) {
+            String playerName = TextUI.promptText("Tast spiller navn");
+            this.createPlayer(playerName, 0);
+        }
     }
 
 
