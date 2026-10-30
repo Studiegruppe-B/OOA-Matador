@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileIO {
-    public ArrayList<String> readData(String path){
+public final class FileIO {
+    public static ArrayList<String> readData(String path){
         File file = new File(path);
         ArrayList<String> data = new ArrayList<>();
         try (Scanner scan = new Scanner(file)) {
@@ -17,7 +17,7 @@ public class FileIO {
         return data;
     }
 
-    public void saveData(ArrayList<String> data, String path, String header){
+    public static void saveData(ArrayList<String> data, String path, String header){
         File file = new File(path);
         try (FileWriter writer = new FileWriter(file)){
             writer.write(header+"\n"); // Write header

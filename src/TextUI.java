@@ -2,26 +2,22 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class TextUI {
+public final class TextUI {
     /*
-
-
-
 
 ' shows the options, promts for choices until limit is reached, and returns the user's choices as a list of Strings
 + ArrayList<String> promptChoice(ArrayList<String> options, int limit, String msg)
 
-
     */
-    Scanner scan = new Scanner(System.in);
+    private static Scanner scan = new Scanner(System.in);
 
-    public String promptText(String msg){
+    public static String promptText(String msg){
         System.out.println(msg);
         String input  = scan.nextLine();
         return input;
     }
 
-    public boolean promptBinary(String msg){
+    public static boolean promptBinary(String msg){
         System.out.println(msg + " Y/N");
         String input  = scan.nextLine();
         boolean x;
@@ -38,11 +34,11 @@ public class TextUI {
         }
     }
 
-    public void displayMessage(String message){
+    public static void displayMessage(String message){
         System.out.println(message);
     }
 
-    public int promptNumeric(String msg){
+    public static int promptNumeric(String msg){
         System.out.println(msg);
         int input = 0;
         try {
@@ -55,7 +51,7 @@ public class TextUI {
         return input;
     }
 
-    public void displayList(ArrayList<String> list, String msg, boolean numbered){//parameter der forstæller OM listen er nummereret eller ej.
+    public static void displayList(ArrayList<String> list, String msg, boolean numbered){//parameter der forstæller OM listen er nummereret eller ej.
         System.out.println(msg);
 
         for(int i = 0; i< list.size(); i++){
@@ -87,13 +83,13 @@ public class TextUI {
 
     }
 
-    public ArrayList<String> promptChoice(ArrayList<String> options, int limit, String msg){
+    public static ArrayList<String> promptChoice(ArrayList<String> options, int limit, String msg){
         ArrayList<String> choices =  new ArrayList<>();
 
 
         //kør et while loop, så længe limit ikke er nået
         while(choices.size()<limit ) {
-            int input = this.promptNumeric(msg);
+            int input = promptNumeric(msg);
             if(input > 0 && input <= options.size()) {
                 String choice = options.get(input-1);
                 choices.add(choice);
@@ -107,9 +103,9 @@ public class TextUI {
         return choices;
     }
 
-    public int promptMenuChoice(ArrayList<String> menu, String msg){
+    public static int promptMenuChoice(ArrayList<String> menu, String msg){
         displayList(menu, msg, true);
-        int input = this.promptNumeric("tast et tal");
+        int input = promptNumeric("tast et tal");
         return input;
     }
 }

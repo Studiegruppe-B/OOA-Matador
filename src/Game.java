@@ -3,28 +3,25 @@ import java.util.List;
 
 public class Game {
 
-    private String name;
-    private int maxPlayers;
-    private List<Player> players;
-    TextUI ui = new TextUI();
-    FileIO io = new FileIO();
-
-
+    private final String name;
+    private final int maxPlayers;
+    private final ArrayList<Player> players;
 
     public Game(String name){
         this.name = name;
+        this.maxPlayers = 6;
         players = new ArrayList<>();
 
     }
     public void startSession(){
-        ui.displayMessage("Velkommen til Matador!");
-        ArrayList<String> data = io.readData("data/playerData.csv");
+        TextUI.displayMessage("Velkommen til Matador!"); // Welcome message
+        ArrayList<String> data = FileIO.readData("data/playerData.csv"); // Read data from save file
         if(data.isEmpty()){
             registerPlayers();
-        }else {
+        } else {
             boolean loop = true;
             while (loop) {
-                int answer = Integer.parseInt(ui.promptText("Vil du lave et nyt spil(1)\n Eller bruge nuværende data?(2)"));
+                int answer = Integer.parseInt(TextUI.promptText("Vil du lave et nyt spil(1)\n Eller bruge nuværende data?(2)"));
                 switch (answer) {
                     case 1:
                         registerPlayers();
@@ -48,18 +45,14 @@ public class Game {
             }
 
         }
-
     }
-    public void registerPlayers(){
 
-        int playerNumber = ui.promptNumeric("Tast antal deltagere");
+    public void registerPlayers(){
+        int playerNumber = TextUI.promptNumeric("Tast antal deltagere");
 
         while(this.players.size() < playerNumber) {
-
-            String playerName = ui.promptText("Tast spiller navn");
+            String playerName = TextUI.promptText("Tast spiller navn");
             this.createPlayer(playerName, 0);
-
-
         }
     }
 
@@ -74,6 +67,7 @@ public class Game {
             System.out.println(p);
         }
     }
+
     public void endSession(){
         ArrayList<String> playersData = new ArrayList<>();
         // persister data
@@ -82,6 +76,6 @@ public class Game {
             playersData.add(p.toString());
 
         }
-        io.saveData(playersData, "data/playerData.csv", "Name, Balance");
+        FileIO.saveData(playersData, "data/playerData.csv", "Name, Balance");
     }
 }
