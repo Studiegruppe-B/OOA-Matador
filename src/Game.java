@@ -7,9 +7,9 @@ public class Game {
     private final int maxPlayers;
     private final ArrayList<Player> players;
 
-    public Game(String name){
+    public Game(String name, int maxPlayers){
         this.name = name;
-        this.maxPlayers = 6;
+        this.maxPlayers = maxPlayers;
         players = new ArrayList<>();
 
     }

@@ -1,18 +1,23 @@
 
 @startuml
-actor Main
+participant Main
 participant Game
 participant TextUI
 participant FileIO
 participant Player
 
 Main -> Game : startSession()
+activate Game
 
 Game -> TextUI : displayMessage("Velkommen til spillet")
+activate TextUI
 TextUI --> Game
+deactivate TextUI
 
 Game -> FileIO : readPlayerData()
+activate FileIO
 FileIO --> Game : playerData
+deactivate FileIO
 
 alt Spillere findes i filen
     loop For hver spiller i playerData
@@ -27,6 +32,7 @@ end
 
 Game -> TextUI : displayPlayers()
 TextUI --> Game
+
 
 Game --> Main : Session startet
 @enduml
