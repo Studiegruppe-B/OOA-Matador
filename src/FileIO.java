@@ -29,9 +29,6 @@ public class FileIO {
         } catch (IOException e) {
             System.out.println("[FileIO] Could not save data to file. File not found!");
         }
-
-
-
     }
 
 }
