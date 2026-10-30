@@ -7,6 +7,7 @@ public class Game {
     private final String name;
     private final int MAX_PLAYERS;
     private final int MIN_PLAYERS;
+    private int PLAYER_COUNT;
     private final ArrayList<Player> players;
     private Player currentPlayer;
     private int roundCount;
@@ -53,9 +54,10 @@ public class Game {
         this.roundCount = 0;
 
         while(continueGame) {
-            this.currentPlayer = players.get(roundCount % MAX_PLAYERS);
+            this.currentPlayer = players.get(roundCount % PLAYER_COUNT);
 
-            roundCount++;
+            continueGame = TextUI.promptBinary("Fortsæt?");
+            this.roundCount++;
         }
 
     }
@@ -68,6 +70,7 @@ public class Game {
                 String playerName = TextUI.promptText("Tast spiller navn");
                 this.createPlayer(playerName, 0);
             }
+            PLAYER_COUNT = players.size(); // Initialize player count variable.
             Collections.shuffle(players); // Shuffle player List
             return;
         }
@@ -84,15 +87,17 @@ public class Game {
     }
 
     public void displayPlayers(){
-        for(Player p:players){
+        for(Player p : players){
             System.out.println(p);
         }
     }
 
     public void endSession(){
+        TextUI.promptText("Lukker spil. Tak for at spille!");
+
         ArrayList<String> playersData = new ArrayList<>();
 
-        for(Player p:players){
+        for(Player p : players){
             playersData.add(p.toString());
         }
         FileIO.saveData(playersData, "data/playerData.csv", "Name, Balance"); // persister data

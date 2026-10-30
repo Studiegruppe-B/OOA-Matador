@@ -7,7 +7,7 @@ public class Main {
 
         Game g = new Game("Yatzy", 2, 6);
         g.startSession();
-        g.displayPlayers();
+        g.runGameLoop();
         g.endSession();
     }
 }
