@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileIO {
-
-
     public ArrayList<String> readData(String path){
         File file = new File(path);
         ArrayList<String> data = new ArrayList<>();
